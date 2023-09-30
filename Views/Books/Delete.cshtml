@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-8">
+        <h1 class="text-center">Удаление</h1>
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
+        <h3 class="text-center">Вы точно хотите удалить?</h3>
+        <hr />
+        <div>
+            <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -24,12 +24,6 @@
             @Html.DisplayFor(model => model.Author)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.YearRelease)
         </dt>
         <dd class = "col-sm-10">
@@ -41,17 +35,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateAdded)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+            </dl>
+        
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="text-center">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-secondary">Назад в список книг</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+

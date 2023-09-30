@@ -19,6 +19,7 @@ namespace Library.Models
         [Display(Name = "Описание")]
         public string? Description { get; set; }
         [Display(Name = "Дата добавления")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTimeOffset? DateAdded { get; set; }
         [Display(Name = "Статус")]
         public string Status { get; set; }

@@ -1,12 +1,13 @@
-﻿@using Library.ViewModels;
-@model IndexViewModel
+﻿@model List<Book>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Личный кабинет";
 }
+
 <div class="row justify-content-center">
-    @if (Model.Books.Any())
+    @if (Model.Any())
     {
-        foreach (var card in Model.Books)
+        foreach (var card in Model)
         {
             @if (card.Status == "В наличии")
             {
@@ -32,25 +33,7 @@
         </div>
     }
 </div>
-<div class="row justify-content-center">
-    <div class="col-md-4 ms-auto">
-        @if (Model.PageViewModel.HasPreviousPage)
-        {
-           <a asp-action="Index"
-               asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-               class="btn btn-outline-dark">
-                Назад
-            </a>
-        }
-    </div>
-    <div class="col-md-4 ms-auto">
-        @if (Model.PageViewModel.HasNextPage)
-        {
-            <a asp-action="Index"
-               asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-               class="btn btn-outline-dark">
-                Вперед
-            </a>
-        }
-    </div>
-</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

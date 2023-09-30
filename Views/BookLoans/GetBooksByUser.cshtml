@@ -1,0 +1,18 @@
+﻿@model List<Book>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-5">
+        <div class="card p-3">
+            <form asp-action="PersonalCabinet">
+                <div class="form-group text-center mb-4">
+                    <label for="email">Введите email для входа в личный кабинет:</label>
+                    <input type="email" class="form-control mt-2" id="email" name="email" required>
+                    <p class="text-danger">@ViewBag.Error</p>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

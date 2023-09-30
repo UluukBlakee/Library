@@ -37,9 +37,9 @@ namespace Library.Controllers
 
         public ActionResult Edit(int id)
         {
-            Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
-            if (category != null)
-                return View(category);
+            User user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+                return View(user);
             return NotFound();
         }
 

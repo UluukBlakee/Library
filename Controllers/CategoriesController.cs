@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
-    public class CategoriesContoller : Controller
+    public class CategoriesController : Controller
     {
         private readonly LibraryContext _context;
-        public CategoriesContoller(LibraryContext context)
+        public CategoriesController(LibraryContext context)
         {
             _context = context;
         }

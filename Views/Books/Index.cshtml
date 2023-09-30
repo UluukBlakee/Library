@@ -1,19 +1,19 @@
-﻿@model IEnumerable<Library.Models.Book>
-
+﻿@using Library.ViewModels;
+@model IndexViewModel
 @{
     ViewData["Title"] = "Index";
 }
 <div class="container">
     <div class="row justify-content-center">
-        @foreach (var card in Model)
+        @foreach (var card in Model.Books)
         {
             <div class="col-md-4 mb-4">
-                <div class="card p-3 h-100 d-flex flex-column style="width: 18rem;">
-                    <img src="@card.ImagePath" class="card-img-top w-100" alt="Book Image">
+                <div class="card p-3 h-75 d-flex flex-column style="width: 18rem;">
+                    <img src="@card.ImagePath" class="card-img-top h-100" alt="Book Image">
                     <div class="card-body text-center">
-                        <h6 class="card-title fs-5 fw-bold">Название: @card.Title</h6>
-                        <h6 class="card-text fs-5">Цена: @card.Author</h6>
-                        <p class="card-text text-muted small">Дата добавления: @card.Status</p>
+                        <h6 class="card-title fs-5 fw-bold">@card.Title</h6>
+                        <h6 class="card-text fs-5">Автор: @card.Author</h6>
+                        <p class="card-text text-muted small">Статус: @card.Status</p>
                         <a asp-action="Create" asp-controller="Users" asp-route-bookId="@card.Id" class="btn btn-primary">Получить</a>
                         <a asp-action="Details" asp-route-id="@card.Id" class="btn btn-secondary">Подробнее</a>
                     </div>
@@ -21,4 +21,22 @@
             </div>
         }
     </div>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-outline-dark">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
 </div>

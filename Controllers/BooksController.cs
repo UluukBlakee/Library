@@ -1,4 +1,5 @@
 ﻿using Library.Models;
+using Library.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,15 +15,23 @@ namespace Library.Controllers
         {
             _context = context;
         }
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            List<Book> books = _context.Books.OrderBy(b => b.DateAdded).ToList();
-            return View(books);
+            List<Book> books = _context.Books.OrderByDescending(b => b.DateAdded).ToList();
+            int pageSize = 2;
+            var count = books.Count();
+            var items = books.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                Books = items
+            };
+            return View(viewModel);
         }
 
         public ActionResult Details(int id)
         {
-            Book book = _context.Books.FirstOrDefault(t => t.Id == id);
+            Book book = _context.Books.Include(c => c.Category).FirstOrDefault(b => b.Id == id);
             if (book != null)
                 return View(book);
             return NotFound();
@@ -42,7 +51,7 @@ namespace Library.Controllers
             if (book != null)
             {
                 book.Status = "В наличии";
-                book.DateAdded = DateTime.UtcNow;
+                book.DateAdded = DateTimeOffset.UtcNow;
                 _context.Add(book);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -52,6 +61,8 @@ namespace Library.Controllers
         
         public ActionResult Edit(int id)
         {
+            List<Category> categories = _context.Categories.ToList();
+            ViewData["Categories"] = categories;
             Book book = _context.Books.FirstOrDefault(b => b.Id == id);
             if (book != null)
                 return View(book);

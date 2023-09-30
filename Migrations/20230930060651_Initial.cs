@@ -21,7 +21,7 @@ namespace Library.Migrations
                     ImagePath = table.Column<string>(type: "text", nullable: false),
                     YearRelease = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    DateAdded = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    DateAdded = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

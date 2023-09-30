@@ -1,0 +1,39 @@
+﻿@model Library.Models.BookLoan
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-4">
+            <img src="@Model.Book.ImagePath" alt="@Model.Book.Title" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <div class="card text-left">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label for="email">Вы берете книгу @Model.Book.Title
+                            <br />
+                                Автор @Model.Book.Author
+                            <br />
+                                Введите email для получения книги.
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <input type="hidden" name="bookId" value="@Model.Book.Id" />
+                        <button type="submit" class="btn btn-primary">Получить</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Books" asp-action="Index" class="mt-3">Назад в список книг</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

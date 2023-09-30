@@ -14,7 +14,7 @@
                         <h6 class="card-title fs-5 fw-bold">@card.Title</h6>
                         <h6 class="card-text fs-5">Автор: @card.Author</h6>
                         <p class="card-text text-muted small">Статус: @card.Status</p>
-                        <a asp-action="Create" asp-controller="Users" asp-route-bookId="@card.Id" class="btn btn-primary">Получить</a>
+                        <a asp-action="Create" asp-controller="BookLoans" asp-route-bookId="@card.Id" class="btn btn-primary">Получить</a>
                         <a asp-action="Details" asp-route-id="@card.Id" class="btn btn-secondary">Подробнее</a>
                     </div>
                 </div>

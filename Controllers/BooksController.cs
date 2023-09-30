@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Library.Controllers
@@ -15,7 +16,7 @@ namespace Library.Controllers
         }
         public ActionResult Index()
         {
-            List<Book> books = _context.Books.ToList();
+            List<Book> books = _context.Books.OrderBy(b => b.DateAdded).ToList();
             return View(books);
         }
 
@@ -29,6 +30,8 @@ namespace Library.Controllers
 
         public ActionResult Create()
         {
+            List<Category> categories = _context.Categories.ToList();
+            ViewData["Categories"] = categories;
             return View();
         }
 
@@ -38,6 +41,8 @@ namespace Library.Controllers
         {
             if (book != null)
             {
+                book.Status = "В наличии";
+                book.DateAdded = DateTime.UtcNow;
                 _context.Add(book);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -47,7 +52,7 @@ namespace Library.Controllers
         
         public ActionResult Edit(int id)
         {
-            Book book = _context.Books.FirstOrDefault(t => t.Id == id);
+            Book book = _context.Books.FirstOrDefault(b => b.Id == id);
             if (book != null)
                 return View(book);
             return NotFound();
@@ -68,7 +73,7 @@ namespace Library.Controllers
 
         public ActionResult Delete(int id)
         {
-            Book book = _context.Books.FirstOrDefault(t => t.Id == id);
+            Book book = _context.Books.FirstOrDefault(b => b.Id == id);
             if (book != null)
                 return View(book);
             return NotFound();
